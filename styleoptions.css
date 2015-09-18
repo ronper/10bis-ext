@@ -1,0 +1,16 @@
+html {
+	background: linear-gradient(135deg, rgba(207,4,4,1) 0%,rgba(255,48,25,1) 100%); /* W3C */
+	font-family: Elli, Arial;
+	direction: rtl;		
+	width: auto;
+	height: auto;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+	width: auto;
+	height: auto;
+}
+i

@@ -1,0 +1,299 @@
+ @font-face {
+    font-family: Elli;
+    src: url('elliniaclm-light-webfont.ttf');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: Elli;
+    src: url('elliniaclm-bold-webfont.ttf');
+    font-weight: bold;
+}
+
+html, body {
+	width: 480px;
+	height: 300px;
+}
+
+html {
+	background: linear-gradient(135deg, rgba(207,4,4,1) 0%,rgba(255,48,25,1) 100%); /* W3C */
+	font-family: Elli, Arial;
+	direction: rtl;		
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
+img {
+	margin: 5px;
+	border: 2px solid black;
+	vertical-align: middle;
+	width: 75px;
+	height: 75px;
+}
+
+header {
+	background: linear-gradient(to bottom, rgba(99,99,99,1) 0%,rgba(33,33,33,1) 100%); /* W3C */
+	height:35px;
+	box-shadow: 0px 2px 7px rgba(0,0,0,0.7);
+	color: #FFF;
+	line-height: 35px;	
+}
+
+header h1 {
+	margin-right: 10px;
+	font-size: 24px;
+	display: inline;
+}
+
+header h2 {
+	margin-left: 10px;
+	color: #EEE;
+	font-size: 18px;
+	display: inline;
+}
+
+#content {
+	padding: 8px;
+	clear: both;
+	margin: 15px auto 15px auto;
+	width: 90%;
+	border-radius: 5px;
+	background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* W3C */
+	
+}
+
+.bg1 {
+	background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* W3C */
+}
+
+.bg2 {
+	background-color: #DDD;
+	box-shadow: inset 0px 0px 6px rgba(0,0,0,0.7);
+}
+
+.loading {
+	border: 0;
+	width: 22px;
+	height: 22px;
+	vertical-align: middle;
+	margin-top: -4px;
+}
+
+.shadow {
+	box-shadow: 0px 2px 6px rgba(0,0,0,0.7);
+}
+
+.shadow-big {
+	box-shadow: 0px 2px 56px rgba(0,0,0,0.7);
+}
+
+.radius {
+	border-radius: 10px;
+}
+
+.radius-bottom {
+	border-radius: 0 0 10px 10px;
+}
+
+.shadow-inset {
+	box-shadow: inset 0px 0px 6px rgba(0,0,0,0.7);
+}
+
+.header {
+	background-color: #ed1c24;
+	height: 30px;
+	color: #ffffff; 
+	font-weight: bold;
+	vertical-align: middle;
+	width: 100%;
+	text-align: center;
+}
+
+#loginTable2 td {
+	padding: 4px;
+}
+
+#loginTable2 h4 {
+	margin: 10px auto 0px auto;
+	height: 22px;
+	vertical-align: middle;
+}
+table.helpT { 
+	text-align: center;
+	font-weight: normal;
+	width: 100%;
+	color: #404040;
+	background-color: #fafafa;
+	border: 1px #555555 solid;
+	border-collapse: collapse;
+	border-spacing: 0px; 	
+} 
+
+td.helpHed { 
+	border-bottom: 2px solid #555555;
+	border-left: 1px solid #555555;
+	background-color: #e1b5b7;
+	text-indent: 5px;
+	font-weight: bold;
+	color: #404040; 
+	width:68%;
+}
+
+td.helpHed2 { 
+	border-bottom: 1px solid #555555;
+	border-left: 1px solid #555555;
+	background-color: #ffb5b7;
+	text-indent: 5px;
+	font-weight: bold;
+	color: #104040; 
+	width:68%;
+}
+
+td.helpBod{ 
+	border-bottom: 1px solid #9CF;
+	border-top: 0px;
+	border-left: 1px solid #9CF;
+	border-right: 0px;
+	text-align: left;
+	text-indent: 10px;
+	font-weight: normal;
+	color: #404040;
+	background-color: #fafafa; 
+}
+
+table.sofT { 
+	text-align: center;
+	font-weight: normal;
+	color: #404040;
+	width: 100%;
+	background-color: #fafafa;
+	border: 1px #555555 solid;
+	border-collapse: collapse;
+	border-spacing: 0px; 
+}
+
+input[type=number] {
+	width: auto;
+	padding: 3px;
+	font-size: 12px;
+}
+
+.hidden {
+	display: none;
+}
+
+.bottom {
+	font-size: 9px;
+}
+
+.status {
+	color: #09cf61; 
+	font-weight: bold;
+}
+
+.status_failed {
+	color: red; 
+	font-weight: bold;
+}
+
+.inst {
+	color: blue; 
+}
+input, textarea { 
+	padding: 9px;
+	border: solid 1px #E5E5E5;
+	outline: 0;
+	font: normal 13px/100% Verdana, Tahoma, sans-serif;
+	width: 200px;
+	background: #FFFFFF url('bg_form.png') left top repeat-x;
+	background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF));
+	background: -moz-linear-gradient(top, #FFFFFF, #EEEEEE 1px, #FFFFFF 25px);
+	box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+	border-radius: 3px;
+	}
+
+textarea { 
+	width: 400px;
+	max-width: 400px;
+	height: 150px;
+	line-height: 150%;
+	}
+
+input:hover, textarea:hover,
+input:focus, textarea:focus { 
+	border-color: #C9C9C9; 
+	-webkit-box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 8px;
+	}
+
+.form label { 
+	margin-left: 10px; 
+	color: #999999; 
+	}
+
+.submit input {
+	width: auto;
+	padding: 9px 15px;
+	background: #617798;
+	border: 0;
+	font-size: 14px;
+	color: #FFFFFF;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	}
+
+.button, .button:visited {
+	background: #222 url(overlay.png) repeat-x;
+	display: inline-block;
+	padding: 5px 10px 6px;
+	color: #fff;
+	text-decoration: none;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	cursor: pointer;
+	width: 80px;
+}
+
+.button:active {
+  box-shadow: 0px 0px 1px rgba(0,0,0,0);  
+}
+
+.button[disabled=disabled] {
+   box-shadow: 0px 0px 1px rgba(0,0,0,0);  
+	background-color: #CCC !important;
+	pointer-events: none;
+}
+   .small.button, .small.button:visited                    { font-size: 11px}
+.button, .button:visited,
+.medium.button, .medium.button:visited      { font-size: 13px;
+                                              font-weight: bold;
+                                              line-height: 1;
+                                              text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+                                              }
+ 
+.large.button, .large.button:visited                    { font-size: 14px;
+                                          padding: 8px 14px 9px; }
+ 
+.super.button, .super.button:visited            { font-size: 34px;
+                                          padding: 8px 14px 9px; }
+
+										  .pink.button, .magenta.button:visited   { background-color: #e22092; }
+    .pink.button:hover                  { background-color: #c81e82; }
+    .green.button, .green.button:visited    { background-color: #91bd09; }
+    .green.button:hover                     { background-color: #749a02; }
+    .red.button, .red.button:visited        { background-color: #e62727; }
+    .red.button:hover                   { background-color: #cf2525; }
+    .orange.button, .orange.button:visited  { background-color: #ff5c00; }
+    .orange.button:hover                { background-color: #d45500; }
+    .blue.button, .blue.button:visited              { background-color: #2981e4; }
+    .blue.button:hover                  { background-color: #2575cf; }
+    .yellow.button, .yellow.button:visited  { background-color: #ffb515; }
+    .yellow.button:hover                { background-color: #fc9200; }
