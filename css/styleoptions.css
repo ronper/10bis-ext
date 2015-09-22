@@ -14,6 +14,21 @@ body {
 	height: auto;
 }
 
-table.login td:first-child {
-	text-align: left;
+body > table {
+	width: 100%;
+}
+
+table.options > tbody > tr > td:first-child, table.options > tbody > tr > td:last-child {
+	width: 25%;
+}
+
+#loginTableInner tr > td:first-child {
+	text-align: center;
+}
+
+#loginTableInner input {
+	width: 85%;
+}
+table h3 {
+	text-align: center;
 }

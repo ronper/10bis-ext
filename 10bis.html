@@ -9,84 +9,71 @@
 <body style="height: 300px; width: 480px">
 
 	<header>
-		<div style="float:right;">
-			<h1>תוסף תן ביס</h1>
-		</div>
-		<div style="float:left;">
-			<h2>העוזר היומי שלך</h2>
-		</div>
+		<div>
+			<h1>תוסף תן ביס</h1></div>
+		<div>
+			<h2>העוזר היומי שלך</h2></div>
 	</header>
 
 	<div id="content" class="shadow-inset">
 
-		<div id="outStatus" style="vertical-align:middle; margin-top: 4px; font-weight: bold; text-align: center;"></div>
+		<div class="outStatus"></div>
 
-		<table id="loginTable" class="hidden" style="width:100%; text-align: center;">
+		<table id="loginTable" class="hidden">
 			<tr>
 				<td>
-
-					<table id="loginTable2" class="hidden" style="width:90%; margin: 0 auto">
-						<tr height="18px">
-							<td colspan="2" style="vertical-align:middle; text-align: center;">
-								<h4 class="status" id="outStatus2">&nbsp;</h4></td>
+					<table id="loginTableInner" class="hidden">
+						<tr>
+							<td colspan="2">
+								<h4 id="outStatusLogin" class="status">&nbsp;</h4></td>
 						</tr>
 						<tr>
-							<td style="text-align: left">שם משתמש:</td>
+							<td>שם משתמש:</td>
 							<td>
-								<input id="txtUsername" type="text" name="txtUsername" style="width:100%"></input>
+								<input id="txtUsername" type="text"></input>
 							</td>
 						</tr>
-
 						<tr>
-							<td style="text-align: left">סיסמא:</td>
+							<td>סיסמא:</td>
 							<td>
-								<input id="txtPassword" type="password" name="txtPassword" style="width:100%"></input>
+								<input id="txtPassword" type="password"></input>
 							</td>
 						</tr>
-
 					</table>
-
 				</td>
 			</tr>
 			<tr>
-				<td style="padding:8px"></td>
+				<td>&nbsp;</td>
 			</tr>
 			<tr>
 				<td>
-
-					<div align="center">
+					<div>
 						<a id="chkConn" class="medium button blue">בדיקת חיבור</a>
-						<a id="saveBtn" class="medium button green" disabled="disabled" name="saveBtn">שמור</a>
+						<a id="saveBtn" class="medium button green" disabled="disabled">שמור</a>
 					</div>
-
 				</td>
 			</tr>
 		</table>
 
-
-		<table id="mainTable" class="hidden" style="width:100%;">
+		<table id="mainTable" class="hidden">
 			<tr>
 				<td>
-
-					<table id="mainTable2" style="width:100%" class="hidden">
+					<table id="mainTableInner" class="hidden">
 						<tr>
-							<td style="vertical-align:middle; text-align: center;"><span id="outReportTitle" style="font-size:88%"></span>
-							</td>
+							<td><span id="outReportTitle"></span></td>
 						</tr>
 						<tr>
-							<td style="vertical-align:middle; text-align: center; font-size:85%"><span id="outTotalMonthBalance"></span></td>
+							<td><span id="outTotalMonthBalance"></span></td>
 						</tr>
 					</table>
-
 				</td>
 			</tr>
 			<tr>
-				<td style="padding:8px"></td>
+				<td>&nbsp;</td>
 			</tr>
 			<tr>
 				<td>
-
-					<table summary="מידע חודשי על כרטיס התן-ביס" class="sofT" cellspacing="0" id="mainTable3">
+					<table id="mainTableDetails" summary="מידע חודשי על כרטיס התן-ביס" class="sofT" cellspacing="0">
 						<tr>
 							<td class="helpHed2 bg1">יתרה חודשית</td>
 							<td><span id="divMonthBalance">0</span> ₪</td>
@@ -95,40 +82,30 @@
 							<td class="helpHed2 bg1">נותרו החודש:</td>
 							<td><span id="divDaysLeft">0</span> ימים</td>
 						</tr>
-
 						<tr>
 							<td class="helpHed2 bg1">יתרה יומית ממוצעת:</td>
 							<td class="bg2"><span id="divPerDay">0</span> ₪</td>
 						</tr>
-
 					</table>
-
 				</td>
 			</tr>
-
 			<tr>
-				<td style="padding:8px">
-				</td>
+				<td>&nbsp;</td>
 			</tr>
-
-
 			<tr>
 				<td>
-					<table summary="מידע חודשי על כרטיס התן-ביס" class="sofT" cellspacing="0" id="mainTable4">
+					<table id="mainTableHoliday" summary="מידע חודשי על כרטיס התן-ביס" class="sofT" cellspacing="0">
 						<tr>
 							<td class="helpHed2 bg1">ימי חופשה עתידיים:</td>
 							<td>
-								<input id="offDays" type="number" min="0" max="20" /> ימים</td>
+								<input id="offDays" type="number" min="0" max="22" /> ימים</td>
 						</tr>
-
 					</table>
 				</td>
 			</tr>
-
 		</table>
-
 	</div>
-
+	
 </body>
 
 </html>

@@ -144,13 +144,13 @@ function main() {
 				$('#mainTable3').removeClass('hidden');
 				$('#mainTable4').removeClass('hidden');
 				$('#loginTable').addClass('hidden');
-				$('#loginTable2').addClass('hidden');
+				$('#loginTableInner').addClass('hidden');
 			}
 		});
 	} else {
-		document.getElementById('outStatus').innerText = "הזן פרטי חיבור המשמשים לאתר תן-ביס:";
+		$('.outStatus').html("הזן פרטי חשבון תן-ביס:");
 		$('#loginTable').removeClass('hidden');
-		$('#loginTable2').removeClass('hidden');
+		$('#loginTableInner').removeClass('hidden');
 		$('#mainTable').addClass('hidden');
 		$('#mainTable').addClass('hidden');
 		$('#mainTable2').addClass('hidden');
@@ -231,7 +231,7 @@ function save_login() {
 	chrome.extension.getBackgroundPage().getData();
 
 	$('#loginTable').addClass('hidden');
-	$('#loginTable2').addClass('hidden');
+	$('#loginTableInner').addClass('hidden');
 	main();
 }
 
