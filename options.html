@@ -1,67 +1,78 @@
 ﻿<html>
+
 <head>
-<title>10bis - Options</title>
-	<script type="text/javascript" src="jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="common.js"></script>
-	<link rel="stylesheet" href="style.css">
-	<link rel="stylesheet" href="styleoptions.css">
+	<title>10bis - הגדרות</title>
+	<script type="text/javascript" src="js/vendor/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/styleoptions.css">
 </head>
+
 <body>
 
-<table width="100%"><tr><td width="25%"></td>
+	<table width="100%">
+		<tr>
+			<td width="25%"></td>
 
-<td class="bg1 shadow-big radius-bottom">
+			<td class="bg1 shadow-big radius-bottom">
 
-<header>
-	<div style="float:right;">
-		<h1>תוסף תן ביס</h1>
-	</div>
-	<div style="float:left;">
-		<h2>העוזר היומי שלך</h2>
-	</div>
-</header>
+				<header>
+					<div style="float:right;">
+						<h1>תוסף תן ביס</h1>
+					</div>
+					<div style="float:left;">
+						<h2>העוזר היומי שלך</h2>
+					</div>
+				</header>
 
-<h4 align="center">הגדרות</h4>
+				<h3 align="center">הגדרות</h3>
 
-<form method="POST" name="frm">
+				<form method="POST" name="frm">
 
-<table style="padding: 8px; text-align: center; margin: 0 auto">
-<tr>
-<td colspan="2">
-<span class="inst"><b>הזן פרטי חיבור המשמשים לאתר תן-ביס:</b></span>
-</td>
-</tr>
-<tr height="8px">
-	<td colspan="2"><h4 class="status" id="status"></h4></td>
-</tr>
-<tr>
-<td>דוא"ל/שם משתמש:</td>
-<td><input id="txtUsername" type="text" name="txtUsername" size="50"></input></td>
-</tr>
+					<table class="login" style="padding: 8px; margin: 0 auto">
+						<tr>
+							<td colspan="2" style="text-align: center">
+								<span class="inst"><b>הזן פרטי חיבור המשמשים לאתר תן-ביס:</b></span>
+							</td>
+						</tr>
+						<tr height="8px">
+							<td colspan="2">
+								<h4 class="status" id="status"></h4></td>
+						</tr>
+						<tr>
+							<td>דוא"ל/שם משתמש:</td>
+							<td>
+								<input id="txtUsername" type="text" name="txtUsername" size="50"></input>
+							</td>
+						</tr>
 
-<tr>
-<td>סיסמא:</td>
-<td><input id="txtPassword" type="password" name="txtPassword"></input></td>
-</tr>
+						<tr>
+							<td>סיסמא:</td>
+							<td>
+								<input id="txtPassword" type="password" name="txtPassword"></input>
+							</td>
+						</tr>
 
-</table>
+					</table>
 
-</form>
+				</form>
 
-<br /><br />
+				<br />
+				<br />
 
-<div align="center">
-<a id="chkConn" class="medium button blue">בדיקת חיבור</a>
-<a id="saveBtn" class="medium button green" name="saveBtn">שמור</a>
-</div>
+				<div align="center">
+					<a id="chkConn" class="medium button blue">בדיקת חיבור</a>
+					<a id="saveBtn" class="medium button green" name="saveBtn">שמור</a>
+				</div>
 
-<br />
+				<br />
 
-</td>
+			</td>
 
-<td width="25%"></td></tr></table>
-
-
+			<td width="25%"></td>
+		</tr>
+	</table>
 
 </body>
+
 </html>

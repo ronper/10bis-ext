@@ -1,15 +1,3 @@
- @font-face {
-    font-family: Elli;
-    src: url('elliniaclm-light-webfont.ttf');
-    font-weight: normal;
-}
-
-@font-face {
-    font-family: Elli;
-    src: url('elliniaclm-bold-webfont.ttf');
-    font-weight: bold;
-}
-
 html, body {
 	width: 480px;
 	height: 300px;

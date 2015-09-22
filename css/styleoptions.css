@@ -13,4 +13,7 @@ body {
 	width: auto;
 	height: auto;
 }
-i
+
+table.login td:first-child {
+	text-align: left;
+}
