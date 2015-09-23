@@ -17,7 +17,7 @@ var popup = (function () {
 			if (daysMinusVacation < 1) {
 				daysMinusVacation = 1;
 			}
-			setPerDayBalance(data.curMonthBalance / daysMinusVacation);
+			setPerDayBalance(Math.min(data.curMonthBalance / daysMinusVacation, parseInt(localStorage.maxDailyLimit || 45)));
 
 			if (data.totalMonthBalance) {
 				$('.outStatus').html('');
@@ -54,12 +54,24 @@ var popup = (function () {
 		let offDays = parseInt($('#offDays').val());
 		if (Number.isInteger(offDays)) {
 			localStorage.offDays = offDays;
-			var daysMinusVacation = chrome.extension.getBackgroundPage().bg.data.daysLeft - offDays;
-
-			if (daysMinusVacation < 1) {
-				daysMinusVacation = 1;
-			}
-			setPerDayBalance(chrome.extension.getBackgroundPage().bg.data.curMonthBalance / daysMinusVacation);
+			populateData(chrome.extension.getBackgroundPage().bg.data);
+		}
+	}
+	
+	function saveRechargeDay() {
+		let rechargeDay = parseInt($('#rechargeDay').val());
+		if (Number.isInteger(rechargeDay)) {
+			localStorage.rechargeDay = rechargeDay;
+			common.getNumOfDaysLeft(chrome.extension.getBackgroundPage().bg.data);
+			populateData(chrome.extension.getBackgroundPage().bg.data);
+		}
+	}
+	
+	function saveDailyLimit() {
+		let dailyLimit = parseInt($('#dailyLimit').val());
+		if (Number.isInteger(dailyLimit)) {
+			localStorage.maxDailyLimit = dailyLimit;
+			populateData(chrome.extension.getBackgroundPage().bg.data);
 		}
 	}
 
@@ -67,6 +79,8 @@ var popup = (function () {
 
 	document.addEventListener('DOMContentLoaded', function () {
 		document.getElementById('offDays').addEventListener('change', saveOffDays);
+		document.getElementById('rechargeDay').addEventListener('change', saveRechargeDay);
+		document.getElementById('dailyLimit').addEventListener('change', saveDailyLimit);
 		document.getElementById('saveBtn').addEventListener('click', main);
 	});
 

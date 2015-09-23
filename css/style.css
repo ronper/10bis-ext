@@ -4,7 +4,7 @@ html, body {
 }
 
 html {
-	background: linear-gradient(135deg, rgba(207,4,4,1) 0%,rgba(255,48,25,1) 100%); /* W3C */
+	background: #e74c3c;
 	font-family: 'Segoe UI', Tahoma, sans-serif, Arial;
 	font-size: medium;
 	direction: rtl;		
@@ -76,7 +76,7 @@ header h2 {
 }
 
 .bg2 {
-	background-color: #DDD;
+	background-color: #cff4de;
 	box-shadow: inset 0px 0px 6px rgba(0,0,0,0.7);
 }
 
@@ -214,8 +214,13 @@ table.sofT {
 	border-spacing: 0px; 
 }
 
+table.sofT.frm td:last-child {
+	text-align: right;
+	padding-right: 10px;
+}
+
 input[type=number] {
-	width: auto;
+	width: 50px;
 	padding: 3px;
 	font-size: 12px;
 }
@@ -331,8 +336,8 @@ input:focus, textarea:focus {
 .super.button, .super.button:visited            { font-size: 34px; padding: 8px 14px 9px; }
 .pink.button, .magenta.button:visited   { background-color: #e22092; }
 .pink.button:hover                  { background-color: #c81e82; }
-.green.button, .green.button:visited    { background-color: #91bd09; }
-.green.button:hover                     { background-color: #749a02; }
+.green.button, .green.button:visited    { background-color: #27ae60; }
+.green.button:hover                     { background-color: #2ecc71; }
 .red.button, .red.button:visited        { background-color: #e62727; }
 .red.button:hover                   { background-color: #cf2525; }
 .orange.button, .orange.button:visited  { background-color: #ff5c00; }

@@ -173,8 +173,9 @@ var common = (function () {
 		let nowMonth = now.getMonth();
 		let monthDays = monthDaysArray[nowMonth];
 		let workDays = 0;
+		let rechargeDay = parseInt(localStorage.rechargeDay) || 1;
 
-		if (nowDate >= 21) {  // month not over yet
+		if (nowDate >= rechargeDay) {  // month not over yet
 			while (nowDate <= monthDays) {
 				if (nowDay !== 5 && nowDay !== 6) {
 					workDays++;
@@ -187,14 +188,14 @@ var common = (function () {
 				nowDate++;
 			}
 			nowDate = 1;
-			if (nowMonth == 12) {
+			if (nowMonth === 12) {
 				nowMonth = 1;
 			} else {
 				nowMonth++;
 			}
 		}
 
-		while (nowDate <= 20) {
+		while (nowDate <= rechargeDay-1) {
 			if (nowDay !== 5 && nowDay !== 6) {
 				workDays++;
 			}

@@ -96,11 +96,21 @@
 			</tr>
 			<tr>
 				<td>
-					<table summary="מידע חודשי על כרטיס התן-ביס" class="sofT" cellspacing="0">
+					<table summary="מידע חודשי על כרטיס התן-ביס" class="sofT frm" cellspacing="0">
 						<tr>
 							<td class="helpHed2 bg1">ימי חופשה עתידיים:</td>
 							<td>
 								<input id="offDays" type="number" min="0" max="22" value="0" /> ימים</td>
+						</tr>
+						<tr>
+							<td class="helpHed2 bg1">יום בחודש בו נטען הכרטיס:</td>
+							<td>
+								<input id="rechargeDay" type="number" min="1" max="31" value="1" /> לחודש</td>
+						</tr>
+						<tr>
+							<td class="helpHed2 bg1">תקרה יומית:</td>
+							<td>
+								<input id="dailyLimit" type="number" min="1" max="200" value="45" /> ₪</td>
 						</tr>
 					</table>
 				</td>
