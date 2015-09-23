@@ -1,135 +1,174 @@
-function checkConnection(username, password) {
-    var xhr = new XMLHttpRequest();
-    var status = document.getElementById("status");
+var common = (function () {
+	'use strict';
 
-    if (username != null && username != '' && password != null && password != '') {
-        console.log("Trying to login...");
-		var serviceUrl = "https://www.10bis.co.il/Account/LogonAjax";
-		var UserLogOnModel = new Object();
-		UserLogOnModel.UserName = username;
-		UserLogOnModel.Password = password;
-		if (serviceUrl) {
-			$.ajax({
-				type: "POST",
-				dataType: "json",
-				contentType: "application/json; charset=utf-8",
-				traditional: true,
-				url: serviceUrl,
-				data: JSON.stringify({
-					timestamp: $.now(),
-					model: UserLogOnModel
-				}),
-				success: function (result) {
-					if (result.LogingSuccess) {
-						status.innerHTML = "כתובת דואר אלקטרוני וסיסמה אושרו";
-						status.className = "status";
-						document.getElementById("saveBtn").disabled = false;
-					}
-					else {
-						status.innerHTML = "שגיאה באימות דואר אלקטרוני וסיסמה";
-						status.className = "status_failed";
-						setTimeout(function () {
-							status.innerHTML = "";
-						}, 2750);
-					}
-				},
-				failure: function (result) {
-					status.innerHTML = "שגיאה באימות דואר אלקטרוני וסיסמה";
-					status.className = "status_failed";
-					setTimeout(function () {
-						status.innerHTML = "";
-					}, 2750);
-				}
-			});
+	const config = {
+		'loginUrl': 'https://www.10bis.co.il/Account/LogonAjax',
+		'usageUrl': 'https://www.10bis.co.il/Account/UserReport'
+	};
+
+	class App {
+		constructor() { }
+
+		/** 
+		* Display a general status message
+		*/
+		static showStatus(message, opts) {
+			opts = opts || { msgClass: 'status' };
+			let status = $('.status > span');
+			if (status.length) {
+				status.html(message);
+				status.attr('class', opts.msgClass);
+				setTimeout(function () {
+					status.empty();
+				}, 3000);
+			}
 		}
-    }
-    else {
-        status.innerHTML = "אנא הזן דואר אלקטרוני וסיסמה"
-		status.className = "status_failed";
-        setTimeout(function () {
-			status.innerHTML = "";
-        }, 2750);
-    }
-}
-
-function post_to_url(path, params, method) {
-    method = method || "post"; // Set method to post by default, if not specified.
-
-    // The rest of this code assumes you are not using a library.
-    // It can be made less wordy if you use one.
-    var form = document.createElement("form");
-    form.setAttribute("method", method);
-    form.setAttribute("action", path);
-
-    for (var key in params) {
-        if (params.hasOwnProperty(key)) {
-            var hiddenField = document.createElement("input");
-            hiddenField.setAttribute("type", "hidden");
-            hiddenField.setAttribute("name", key);
-            hiddenField.setAttribute("value", params[key]);
-
-            form.appendChild(hiddenField);
-		}
-    }
-
-    document.body.appendChild(form);
-    form.submit();
-}
-
-// Saves options to localStorage.
-function save_options() {
-	var txtUsername = document.getElementById("txtUsername");
-	var username = txtUsername.value;
-
-	var txtPassword = document.getElementById("txtPassword");
-	var password = txtPassword.value;
-
-	localStorage["username"] = username;
-	localStorage["password"] = password;
-	
-	// Update status to let user know options were saved.
-	
-	var status = document.getElementById("status");
-	status.innerHTML = "השינויים נשמרו בהצלחה";
-	status.className = "status";
-	setTimeout(function () {
-		status.innerHTML = "";
-	}, 2750);
-
-	chrome.extension.getBackgroundPage().reset();
-	chrome.extension.getBackgroundPage().getData();
-}
-
-// Check user and password.
-function check_options() {
-	var txtUsername = document.getElementById("txtUsername");
-	var username = txtUsername.value;
-
-	var txtPassword = document.getElementById("txtPassword");
-	var password = txtPassword.value;
 		
-	// Update status to let user know options were saved.
-	checkConnection(username, password);
-}
+		/**
+		 * Load the saved options from local storage
+		 */
+		static loadSavedOptions() {
+			if (localStorage.username) {
+				$('#txtUsername').val(localStorage.username);
+			}
 
+			if (localStorage.password) {
+				$('#txtPassword').val(localStorage.password);
+			}
+		}
+		
+		/**
+		 * Save the user options and 10bis credentials in local storage
+		 */
+		static saveOptions() {
+			localStorage.username = $('#txtUsername').val();
+			localStorage.password = $('#txtPassword').val();
 
-// Restores select box state to saved value from localStorage.
-function restore_options() {
-	var username = localStorage["username"];
-	var txtUsername = document.getElementById("txtUsername");
-	if (username != null && username != '' && username != 'undefined')
-		txtUsername.value = username;
+			App.showStatus('השינויים נשמרו בהצלחה');
 
-	var password = localStorage["password"];
-	var txtPassword = document.getElementById("txtPassword");
-	if (password != null && password != '' && password != 'undefined')
-		txtPassword.value = password;
-}
+			chrome.extension.getBackgroundPage().bg.reset();
+			chrome.extension.getBackgroundPage().bg.getData();
+		}
+		
+		static updateBadge() {
+			chrome.extension.getBackgroundPage().bg.updateBadge();
+		}
+	}
 
-window.onload = restore_options;
+	class TenBis {
 
-document.addEventListener('DOMContentLoaded', function () {
-	document.querySelector('body').addEventListener('onload', restore_options);
-	document.getElementById('chkConn').addEventListener('click', check_options);
-	document.getElementById('saveBtn').addEventListener('click', save_options);
-});
+		constructor(username, password) {
+			this.username = username;
+			this.password = password;
+		}
+
+		/** 
+		* Check the 10bis credentials and connect to 10bis login service
+		*/
+		connect(cbSuccess, cbFailure) {
+			cbSuccess = cbSuccess || function () { };
+			cbFailure = cbFailure || function () { };
+			if (this.username && this.password) {
+				$.ajax({
+					type: 'POST',
+					dataType: 'json',
+					contentType: 'application/json; charset=utf-8',
+					traditional: true,
+					url: config.loginUrl,
+					data: JSON.stringify({
+						timestamp: $.now(),
+						model: { UserName: this.username, Password: this.password }
+					}),
+					success: function (result) {
+						if (result.LogingSuccess) {
+							App.showStatus('חשבון התן ביס אומת בהצלחה');
+							$('#saveBtn').removeAttr('disabled');
+						} else {
+							App.showStatus('שגיאה באימות דואר אלקטרוני וסיסמה', { msgClass: 'status_failed' });
+						}
+						cbSuccess();
+					},
+					failure: function (result) {
+						App.showStatus('שגיאה באימות דואר אלקטרוני וסיסמה', { msgClass: 'status_failed' });
+						cbFailure(result);
+					}
+				});
+			} else {
+				App.showStatus('אנא הזן דואר אלקטרוני וסיסמה', { msgClass: 'status_failed' });
+			}
+		}
+
+		/** 
+		* Retrieve the current 10bis usage data and calculate the important stuff using web scraping
+		*/
+		usage(mainApp) {
+			let xhr = new XMLHttpRequest();
+			xhr.open('GET', config.usageUrl, true);
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4) {
+					// find monthly balance
+					let response = xhr.responseText;
+					let nitzul = response.indexOf('יתרה חודשית');
+					let yitraStart = response.indexOf('totalsFieldValueTh currency', nitzul);
+					let yitraEnd = response.indexOf('</th>', yitraStart);
+					let yitra = response.slice(yitraStart + 'totalsFieldValueTh currency'.length + 4, yitraEnd).trim();
+					console.log('Monthly balance: ' + yitra);
+					mainApp.curMonthBalance = yitra.replace('₪', '').trim();
+					mainApp.reportTitle = TenBis.parseReportTitle(response);
+					mainApp.totalMonthBalance = TenBis.parseTotalMonthBalance(response);
+					console.log('Report title: ' + mainApp.reportTitle);									
+					// find if 10bis used today
+					let currentTime = new Date();
+					let month = (currentTime.getMonth() < 10 ? '0' + (currentTime.getMonth() + 1) : currentTime.getMonth() + 1);
+					let day = (currentTime.getDate() < 10 ? '0' + currentTime.getDate() : currentTime.getDate());
+					let year = currentTime.getFullYear();
+					let today = day + '/' + month + '/' + year;									
+					// report always has today's date in it - find it
+					let reportDate = response.indexOf(today);                             
+					// now try finding today's date again which means we ate today!
+					mainApp.eatToday = (response.indexOf(today, reportDate + 5) !== -1);
+					App.updateBadge();
+				}
+			}
+			xhr.send();
+		}
+		
+		/** 
+		* Helper methods for parsing 10bis data
+		*/
+		static parseReportTitle(response) {
+			let titleIdentifier = response.indexOf('reportHeaderTr');
+			let titleStart = response.indexOf('<span>', titleIdentifier);
+			let end = response.indexOf('</span>', titleStart);
+			return response.substring(titleStart + 6, end);
+		}
+
+		static parseTotalMonthBalance(response) {
+			let misgeretStart = response.indexOf('totalsFieldValueTh currency');
+			let end = response.indexOf('</th>', misgeretStart);
+			return response.substring(misgeretStart + 'totalsFieldValueTh currency'.length + 4, end).replace('₪', '').trim();
+		}
+	}
+
+	String.prototype.trim = function () {
+		return this.replace(/^\s*/, '').replace(/\s*$/, '');
+	}
+
+	function checkConnection() {
+		let bis = new TenBis($('#txtUsername').val(), $('#txtPassword').val());
+		bis.connect();
+	}
+
+	if (document.title !== 'background') {
+		window.onload = App.loadSavedOptions;
+
+		document.addEventListener('DOMContentLoaded', function () {
+			document.querySelector('body').addEventListener('onload', App.loadSavedOptions);
+			document.getElementById('chkConn').addEventListener('click', checkConnection);
+			document.getElementById('saveBtn').addEventListener('click', App.saveOptions);
+		});
+	}
+
+	return { App, TenBis };
+
+})();
