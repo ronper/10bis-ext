@@ -43,13 +43,16 @@ var common = (function () {
 		static saveOptions() {
 			localStorage.username = $('#txtUsername').val();
 			localStorage.password = $('#txtPassword').val();
+			localStorage.offDays = 0;
+			localStorage.rechargeDay = 1;
+			localStorage.maxDailyLimit = 45;
 
 			App.showStatus('השינויים נשמרו בהצלחה');
 
 			chrome.extension.getBackgroundPage().bg.reset();
 			chrome.extension.getBackgroundPage().bg.getData();
 		}
-		
+
 		static updateBadge() {
 			chrome.extension.getBackgroundPage().bg.updateBadge();
 		}
@@ -101,7 +104,7 @@ var common = (function () {
 		/** 
 		* Retrieve the current 10bis usage data and calculate the important stuff using web scraping
 		*/
-		usage(mainApp) {
+		usage(data) {
 			let xhr = new XMLHttpRequest();
 			xhr.open('GET', config.usageUrl, true);
 			xhr.onreadystatechange = function () {
@@ -113,10 +116,10 @@ var common = (function () {
 					let yitraEnd = response.indexOf('</th>', yitraStart);
 					let yitra = response.slice(yitraStart + 'totalsFieldValueTh currency'.length + 4, yitraEnd).trim();
 					console.log('Monthly balance: ' + yitra);
-					mainApp.curMonthBalance = yitra.replace('₪', '').trim();
-					mainApp.reportTitle = TenBis.parseReportTitle(response);
-					mainApp.totalMonthBalance = TenBis.parseTotalMonthBalance(response);
-					console.log('Report title: ' + mainApp.reportTitle);									
+					data.curMonthBalance = yitra.replace('₪', '').trim();
+					data.reportTitle = TenBis.parseReportTitle(response);
+					data.totalMonthBalance = TenBis.parseTotalMonthBalance(response);
+					console.log('Report title: ' + data.reportTitle);									
 					// find if 10bis used today
 					let currentTime = new Date();
 					let month = (currentTime.getMonth() < 10 ? '0' + (currentTime.getMonth() + 1) : currentTime.getMonth() + 1);
@@ -126,7 +129,7 @@ var common = (function () {
 					// report always has today's date in it - find it
 					let reportDate = response.indexOf(today);                             
 					// now try finding today's date again which means we ate today!
-					mainApp.eatToday = (response.indexOf(today, reportDate + 5) !== -1);
+					data.eatToday = (response.indexOf(today, reportDate + 5) !== -1);
 					App.updateBadge();
 				}
 			}
@@ -158,6 +161,58 @@ var common = (function () {
 		let bis = new TenBis($('#txtUsername').val(), $('#txtPassword').val());
 		bis.connect();
 	}
+	
+	/**
+	 * calculate number of days left until new credit balance
+	 */
+	function getNumOfDaysLeft(data) {
+		let monthDaysArray = new Array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+		let now = new Date();
+		let nowDay = now.getDay();
+		let nowDate = now.getDate();
+		let nowMonth = now.getMonth();
+		let monthDays = monthDaysArray[nowMonth];
+		let workDays = 0;
+
+		if (nowDate >= 21) {  // month not over yet
+			while (nowDate <= monthDays) {
+				if (nowDay !== 5 && nowDay !== 6) {
+					workDays++;
+				}
+				if (nowDay === 6) {
+					nowDay = 0;
+				} else {
+					nowDay++;
+				}
+				nowDate++;
+			}
+			nowDate = 1;
+			if (nowMonth == 12) {
+				nowMonth = 1;
+			} else {
+				nowMonth++;
+			}
+		}
+
+		while (nowDate <= 20) {
+			if (nowDay !== 5 && nowDay !== 6) {
+				workDays++;
+			}
+			if (nowDay === 6) {
+				nowDay = 0;
+			} else {
+				nowDay++;
+			}
+			nowDate++;
+		}
+
+		if (data.eatToday) {
+			workDays--;
+		}
+
+		data.daysLeft = workDays;
+		return workDays;
+	}
 
 	if (document.title !== 'background') {
 		window.onload = App.loadSavedOptions;
@@ -169,6 +224,6 @@ var common = (function () {
 		});
 	}
 
-	return { App, TenBis };
+	return { App, TenBis, getNumOfDaysLeft };
 
 })();
